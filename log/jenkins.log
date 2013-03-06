@@ -1,0 +1,30 @@
+Running from: /home/comsi02/work/jenkins/lib/jenkins.war
+2013. 3. 7 오전 5:23:59 winstone.Logger logInternal
+정보: Beginning extraction from war file
+Jenkins home directory: /home/comsi02/work/jenkins found at: System.getProperty("JENKINS_HOME")
+2013. 3. 7 오전 5:24:03 winstone.Logger logInternal
+정보: HTTP Listener started: port=8080
+2013. 3. 7 오전 5:24:03 winstone.Logger logInternal
+정보: AJP13 Listener started: port=8009
+2013. 3. 7 오전 5:24:03 winstone.Logger logInternal
+정보: Winstone Servlet Engine v0.9.10 running: controlPort=disabled
+2013. 3. 7 오전 5:24:04 jenkins.InitReactorRunner$1 onAttained
+정보: Started initialization
+2013. 3. 7 오전 5:24:07 jenkins.InitReactorRunner$1 onAttained
+정보: Listed all plugins
+2013. 3. 7 오전 5:24:07 jenkins.InitReactorRunner$1 onAttained
+정보: Prepared all plugins
+2013. 3. 7 오전 5:24:07 jenkins.InitReactorRunner$1 onAttained
+정보: Started all plugins
+2013. 3. 7 오전 5:24:07 jenkins.InitReactorRunner$1 onAttained
+정보: Augmented all extensions
+2013. 3. 7 오전 5:24:07 jenkins.InitReactorRunner$1 onAttained
+정보: Loaded all jobs
+2013. 3. 7 오전 5:24:16 org.jenkinsci.main.modules.sshd.SSHD start
+정보: Started SSHD at port 55626
+2013. 3. 7 오전 5:24:16 jenkins.InitReactorRunner$1 onAttained
+정보: Completed initialization
+2013. 3. 7 오전 5:24:17 hudson.TcpSlaveAgentListener <init>
+정보: JNLP slave agent listener started on TCP port 51844
+2013. 3. 7 오전 5:24:17 hudson.WebAppMain$2 run
+정보: Jenkins is fully up and running
