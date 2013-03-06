@@ -30,14 +30,16 @@
 # Description:       Start the Jenkins continuous build server
 ### END INIT INFO
 
+JENKINS_BASE="/home/comsi02/work/jenkins"
+
 # Check for missing binaries (stale symlinks should not happen)
-JENKINS_WAR="/home/comsi02/work/jenkins/lib/jenkins.war"
+JENKINS_WAR="$JENKINS_BASE/lib/jenkins.war"
 test -r "$JENKINS_WAR" || { echo "$JENKINS_WAR not installed"; 
 	if [ "$1" = "stop" ]; then exit 0;
 	else exit 5; fi; }
 
 # Check for existence of needed config file and read it
-JENKINS_CONFIG=/home/comsi02/work/jenkins/conf/jenkins
+JENKINS_CONFIG="$JENKINS_BASE/conf/jenkins"
 test -e "$JENKINS_CONFIG" || { echo "$JENKINS_CONFIG not existing";
 	if [ "$1" = "stop" ]; then exit 0;
 	else exit 6; fi; }
