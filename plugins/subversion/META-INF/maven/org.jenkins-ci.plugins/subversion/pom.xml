@@ -28,14 +28,11 @@ THE SOFTWARE.
   <parent>
     <groupId>org.jenkins-ci.plugins</groupId>
     <artifactId>plugin</artifactId>
-    <version>1.405</version>
-    <!--
-    <version>1.420</version>
-    -->
+    <version>1.466</version>
   </parent>
 
   <artifactId>subversion</artifactId>
-  <version>1.39</version>
+  <version>1.45</version>
   <packaging>hpi</packaging>
 
   <name>Jenkins Subversion Plug-in</name>
@@ -54,13 +51,36 @@ THE SOFTWARE.
     </developer>
   </developers>
   
+  <properties>
+    <maven-hpi-plugin.version>1.91</maven-hpi-plugin.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  
   <build>
+    <plugins>
+        <plugin>
+            <groupId>org.jenkins-ci.tools</groupId>
+            <artifactId>maven-hpi-plugin</artifactId>
+            <version>${maven-hpi-plugin.version}</version>
+        </plugin>
+    </plugins>
   	<pluginManagement>
   		<plugins>
   			<plugin>
   				<artifactId>maven-release-plugin</artifactId>
-  				<version>2.2.1</version>
+  				<version>2.3.2</version>
   			</plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.13</version>
+          <configuration>
+            <systemPropertyVariables>
+              <java.io.tmpdir>${project.build.directory}</java.io.tmpdir>
+              <java.awt.headless>true</java.awt.headless>
+            </systemPropertyVariables>
+          </configuration>
+        </plugin>
   		</plugins>
   	</pluginManagement>
   </build>
@@ -72,10 +92,17 @@ THE SOFTWARE.
     </repository>
   </distributionManagement>
 
+  <scm>
+    <connection>scm:git:git://github.com/jenkinsci/${project.artifactId}-plugin.git</connection>
+    <developerConnection>scm:git:git@github.com:jenkinsci/${project.artifactId}-plugin.git</developerConnection>
+    <url>http://github.com/jenkinsci/${project.artifactId}-plugin</url>
+    <tag>subversion-1.45</tag>
+  </scm>
+
   <repositories>
     <repository>
-      <id>m.g.o-public</id>
-      <url>http://maven.glassfish.org/content/groups/public/</url>
+      <id>repo.jenkins-ci.org</id>
+      <url>http://repo.jenkins-ci.org/public/</url>
     </repository>
     
     <repository>
@@ -84,37 +111,42 @@ THE SOFTWARE.
     </repository>
   </repositories>
 
-  <!-- needs the following section to run "mvn hpi:run". when LTS release comes out with 1.420 or later dependency, time to bump up the core so that we can use this.
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.jenkins-ci.tools</groupId>
-        <artifactId>maven-hpi-plugin</artifactId>
-        <version>1.75</version>
-        <extensions>true</extensions>
-      </plugin>
-    </plugins>
-  </build>
-  -->
-
   <dependencies>
     <dependency>
       <groupId>org.jenkins-ci.svnkit</groupId>
       <artifactId>svnkit</artifactId>
-      <version>1.3.6.1-jenkins-2</version>
+      <version>1.7.6-jenkins-1</version>
     </dependency>
 
     <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
         <groupId>org.mockito</groupId>
         <artifactId>mockito-core</artifactId>
-        <version>1.8.5</version>
+        <version>1.9.5</version>
         <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.powermock</groupId>
+      <artifactId>powermock-module-junit4</artifactId>
+      <version>1.5</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.powermock</groupId>
+      <artifactId>powermock-api-mockito</artifactId>
+      <version>1.5</version>
+      <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>org.jenkins-ci.main</groupId>
       <artifactId>jenkins-test-harness</artifactId>
-      <version>${parent.version}</version>
+      <version>${project.parent.version}</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
@@ -125,9 +157,11 @@ THE SOFTWARE.
     </dependency>
   </dependencies>
 
-  <scm>
-    <connection>scm:svn:https://svn.jenkins-ci.org/tags/subversion-1.39</connection>
-    <developerConnection>scm:svn:https://svn.jenkins-ci.org/tags/subversion-1.39</developerConnection>
-    <url>https://svn.jenkins-ci.org/tags/subversion-1.39</url>
-  </scm>
-</project>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>repo.jenkins-ci.org</id>
+      <url>http://repo.jenkins-ci.org/public/</url>
+    </pluginRepository>
+  </pluginRepositories>
+</project>  
+

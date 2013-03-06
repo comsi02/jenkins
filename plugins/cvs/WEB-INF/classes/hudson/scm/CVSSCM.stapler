@@ -1,2 +1,2 @@
-#Wed Aug 17 19:42:30 PDT 2011
-constructor=cvsRoot,allModules,branch,cvsRsh,canUseUpdate,useHeadIfNotFound,legacy,isTag,excludedRegions
+#Tue Feb 19 18:02:33 GMT 2013
+constructor=repositories,canUseUpdate,legacy,browser,skipChangeLog,pruneEmptyDirectories,disableCvsQuiet,cleanOnFailedUpdate,forceCleanCopy

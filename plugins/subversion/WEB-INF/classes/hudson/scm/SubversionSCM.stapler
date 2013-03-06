@@ -1,2 +1,2 @@
-#Thu Feb 16 14:12:31 GMT 2012
-constructor=locations,workspaceUpdater,browser,excludedRegions,excludedUsers,excludedRevprop,excludedCommitMessages,includedRegions
+#Tue Jan 22 21:44:58 CET 2013
+constructor=locations,workspaceUpdater,browser,excludedRegions,excludedUsers,excludedRevprop,excludedCommitMessages,includedRegions,ignoreDirPropChanges,filterChangelog
