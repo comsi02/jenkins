@@ -70,6 +70,11 @@ do
   JENKINS_JAVA_CMD="$candidate"
 done
 
+mkdir -p $JENKINS_HOME/log
+mkdir -p $JENKINS_HOME/war
+chown $JENKINS_USER:$JENKINS_USER $JENKINS_HOME/log
+chown $JENKINS_USER:$JENKINS_USER $JENKINS_HOME/war
+
 JAVA_CMD="$JENKINS_JAVA_CMD $JENKINS_JAVA_OPTIONS -DJENKINS_HOME=$JENKINS_HOME -jar $JENKINS_WAR"
 #PARAMS="--logfile=/var/log/jenkins/jenkins.log --webroot=/var/cache/jenkins/war --daemon"
 PARAMS="--logfile=$JENKINS_HOME/log/jenkins.log --webroot=$JENKINS_HOME/war --daemon"
