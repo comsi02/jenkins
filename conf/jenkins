@@ -27,6 +27,7 @@ JENKINS_JAVA_CMD=""
 # permissions of $JENKINS_HOME and /var/log/jenkins.
 #
 JENKINS_USER="comsi02"
+JENKINS_GROUP="comsi02"
 
 ## Type:        string
 ## Default:     "-Djava.awt.headless=true"
