@@ -7,7 +7,7 @@
 # Directory where Jenkins store its configuration and working
 # files (checkouts, build reports, artifacts, ...).
 #
-JENKINS_HOME="{SETUP_ROOT}"
+JENKINS_HOME="{SETUP_ROOT}/home"
 
 ## Type:        string
 ## Default:     ""

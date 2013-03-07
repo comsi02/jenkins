@@ -47,7 +47,7 @@ test -r "$JENKINS_CONFIG" || { echo "$JENKINS_CONFIG not readable. Perhaps you f
 	if [ "$1" = "stop" ]; then exit 0;
 	else exit 6; fi; }
 
-JENKINS_PID_FILE="/var/run/jenkins.pid"
+JENKINS_PID_FILE="$JENKINS_BASE/run/jenkins.pid"
 
 # Source function library.
 . /etc/init.d/functions
@@ -74,13 +74,15 @@ done
 
 # Jenkins Log & War directory create.
 # by comsi02
-mkdir -p $JENKINS_HOME/log
-mkdir -p $JENKINS_HOME/war
-chown $JENKINS_USER:$JENKINS_GROUP $JENKINS_HOME/log
-chown $JENKINS_USER:$JENKINS_GROUP $JENKINS_HOME/war
+mkdir -p $JENKINS_BASE/log
+mkdir -p $JENKINS_BASE/war
+mkdir -p $JENKINS_BASE/run
+chown $JENKINS_USER:$JENKINS_GROUP $JENKINS_BASE/log
+chown $JENKINS_USER:$JENKINS_GROUP $JENKINS_BASE/war
+chown $JENKINS_USER:$JENKINS_GROUP $JENKINS_BASE/run
 
 JAVA_CMD="$JENKINS_JAVA_CMD $JENKINS_JAVA_OPTIONS -DJENKINS_HOME=$JENKINS_HOME -jar $JENKINS_WAR"
-PARAMS="--logfile=$JENKINS_HOME/log/jenkins.log --webroot=$JENKINS_HOME/war --daemon"
+PARAMS="--logfile=$JENKINS_BASE/log/jenkins.log --webroot=$JENKINS_HOME/war --daemon"
 [ -n "$JENKINS_PORT" ] && PARAMS="$PARAMS --httpPort=$JENKINS_PORT"
 [ -n "$JENKINS_AJP_PORT" ] && PARAMS="$PARAMS --ajp13Port=$JENKINS_AJP_PORT"
 [ -n "$JENKINS_DEBUG_LEVEL" ] && PARAMS="$PARAMS --debug=$JENKINS_DEBUG_LEVEL"
@@ -98,7 +100,13 @@ RETVAL=0
 case "$1" in
     start)
 	echo -n "Starting Jenkins "
-	daemon --user "$JENKINS_USER" --pidfile "$JENKINS_PID_FILE" $JAVA_CMD $PARAMS > /dev/null
+    #---------------------------------------------------------------------------------------------------#
+    # if root user by comsi02
+    #daemon --user "$JENKINS_USER" --pidfile "$JENKINS_PID_FILE" $JAVA_CMD $PARAMS > /dev/null
+    #---------------------------------------------------------------------------------------------------#
+    # if nomal user by comsi02
+    $JAVA_CMD $PARAMS > /dev/null
+    #---------------------------------------------------------------------------------------------------#
 	RETVAL=$?
 	if [ $RETVAL = 0 ]; then
 	    success
@@ -122,7 +130,23 @@ case "$1" in
 	;;
     stop)
 	echo -n "Shutting down Jenkins "
-	killproc jenkins
+    #---------------------------------------------------------------------------------------------------#
+    # if root user by comsi02
+    #killproc jenkins
+    #---------------------------------------------------------------------------------------------------#
+    # if nomal user by comsi02
+    if [ -f $JENKINS_PID_FILE ]; then
+        pid=`cat $JENKINS_PID_FILE`
+        if [ -n "$pid" ] ; then
+            kill -TERM $pid >/dev/null 2>&1
+            usleep 100000
+        fi
+        rm -rf $JENKINS_PID_FILE
+        success
+    else
+        failure
+    fi
+    #---------------------------------------------------------------------------------------------------#
 	RETVAL=$?
 	echo
 	;;
@@ -160,7 +184,13 @@ case "$1" in
 	test "$JENKINS_CONFIG" -nt "$JENKINS_PID_FILE" && echo reload
 	;;
     *)
-	echo "Usage: $0 {start|stop|status|try-restart|restart|force-reload|reload|probe}"
+    #---------------------------------------------------------------------------------------------------#
+    # if root user by comsi02
+    #echo "Usage: $0 {start|stop|status|try-restart|restart|force-reload|reload|probe}"
+    #---------------------------------------------------------------------------------------------------#
+    # if normal user by comsi02
+    echo "Usage: $0 {start|stop|restart|reload}"
+    #---------------------------------------------------------------------------------------------------#
 	exit 1
 	;;
 esac
