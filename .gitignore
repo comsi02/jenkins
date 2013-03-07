@@ -1,5 +1,7 @@
-war
-log
+bin/jenkins.sh
+conf/jenkins.conf
+war/*
+log/*.log
 queue.xml
 queue.xml.bak
 .owner

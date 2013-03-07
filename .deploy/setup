@@ -10,8 +10,6 @@ CURRENT_USER=`id -un`
 CURRENT_GROUP=`id -gn`
 SETUP_ROOT_TMP=`/bin/sed 's/\//\\\\\//g' <<< "$SETUP_ROOT"`
 
-echo $CURREN_USER
-
 echo "# ======================================================================"
 
 /bin/cp ${SETUP_ROOT}/.deploy/jenkins.bin.templete $SETUP_ROOT/bin/jenkins.sh
