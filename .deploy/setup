@@ -11,13 +11,14 @@ CURRENT_GROUP=`id -gn`
 SETUP_ROOT_TMP=`/bin/sed 's/\//\\\\\//g' <<< "$SETUP_ROOT"`
 
 echo "# ======================================================================"
-
+/bin/mkdir -p $SETUP_ROOT/bin
 /bin/cp ${SETUP_ROOT}/.deploy/jenkins.bin.templete $SETUP_ROOT/bin/jenkins.sh
 echo "# ./bin/jenkins file copy completed."
 
 /bin/sed -i "s/{SETUP_ROOT}/$SETUP_ROOT_TMP/g" $SETUP_ROOT/bin/jenkins.sh
 echo "# ./bin/jenkins file setup completed."
 
+/bin/mkdir -p $SETUP_ROOT/conf
 /bin/cp ${SETUP_ROOT}/.deploy/jenkins.conf.templete $SETUP_ROOT/conf/jenkins.conf
 echo "# ./conf/jenkins file copy completed."
 
