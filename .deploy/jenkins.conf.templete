@@ -26,8 +26,8 @@ JENKINS_JAVA_CMD=""
 # Be careful when you change this, as you need to update
 # permissions of $JENKINS_HOME and /var/log/jenkins.
 #
-JENKINS_USER="#{CURRENT_USER}"
-JENKINS_GROUP="#{CURRENT_GROUP}"
+JENKINS_USER="{CURRENT_USER}"
+JENKINS_GROUP="{CURRENT_GROUP}"
 
 ## Type:        string
 ## Default:     "-Djava.awt.headless=true"

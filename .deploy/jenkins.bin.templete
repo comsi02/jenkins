@@ -39,7 +39,7 @@ test -r "$JENKINS_WAR" || { echo "$JENKINS_WAR not installed";
 	else exit 5; fi; }
 
 # Check for existence of needed config file and read it
-JENKINS_CONFIG="$JENKINS_BASE/conf/jenkins"
+JENKINS_CONFIG="$JENKINS_BASE/conf/jenkins.conf"
 test -e "$JENKINS_CONFIG" || { echo "$JENKINS_CONFIG not existing";
 	if [ "$1" = "stop" ]; then exit 0;
 	else exit 6; fi; }

@@ -6,15 +6,26 @@ if [ $# -lt 1 ]; then
 fi
 
 SETUP_ROOT=$1
-CURREN_USER=`id -un`
-CURREN_GROUP=`id -gn`
-
-echo "# ======================================================================"
-
-/bin/cp ${SETUP_ROOT}/.deploy/jenkins.bin.templete $SETUP_ROOT/bin/jenkins
+CURRENT_USER=`id -un`
+CURRENT_GROUP=`id -gn`
 SETUP_ROOT_TMP=`/bin/sed 's/\//\\\\\//g' <<< "$SETUP_ROOT"`
-/bin/sed -i "s/{SETUP_ROOT}/$SETUP_ROOT_TMP/g" $SETUP_ROOT/bin/jenkins
+
+echo $CURREN_USER
 
 echo "# ======================================================================"
-#echo $CURREN_USER
-#echo $CURREN_GROUP
+
+/bin/cp ${SETUP_ROOT}/.deploy/jenkins.bin.templete $SETUP_ROOT/bin/jenkins.sh
+echo "# ./bin/jenkins file copy completed."
+
+/bin/sed -i "s/{SETUP_ROOT}/$SETUP_ROOT_TMP/g" $SETUP_ROOT/bin/jenkins.sh
+echo "# ./bin/jenkins file setup completed."
+
+/bin/cp ${SETUP_ROOT}/.deploy/jenkins.conf.templete $SETUP_ROOT/conf/jenkins.conf
+echo "# ./conf/jenkins file copy completed."
+
+/bin/sed -i "s/{SETUP_ROOT}/$SETUP_ROOT_TMP/g"   $SETUP_ROOT/conf/jenkins.conf
+/bin/sed -i "s/{CURRENT_USER}/$CURRENT_USER/g"   $SETUP_ROOT/conf/jenkins.conf
+/bin/sed -i "s/{CURRENT_GROUP}/$CURRENT_GROUP/g" $SETUP_ROOT/conf/jenkins.conf
+echo "# ./conf/jenkins file setup completed."
+
+echo "# ======================================================================"
