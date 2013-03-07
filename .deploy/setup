@@ -1,0 +1,20 @@
+#!/bin/sh
+
+if [ $# -lt 1 ]; then
+	echo "$0 <setup-root>"
+	exit 1
+fi
+
+SETUP_ROOT=$1
+CURREN_USER=`id -un`
+CURREN_GROUP=`id -gn`
+
+echo "# ======================================================================"
+
+/bin/cp ${SETUP_ROOT}/.deploy/jenkins.bin.templete $SETUP_ROOT/bin/jenkins
+SETUP_ROOT_TMP=`/bin/sed 's/\//\\\\\//g' <<< "$SETUP_ROOT"`
+/bin/sed -i "s/{SETUP_ROOT}/$SETUP_ROOT_TMP/g" $SETUP_ROOT/bin/jenkins
+
+echo "# ======================================================================"
+#echo $CURREN_USER
+#echo $CURREN_GROUP

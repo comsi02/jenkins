@@ -30,7 +30,7 @@
 # Description:       Start the Jenkins continuous build server
 ### END INIT INFO
 
-JENKINS_BASE="/home/comsi02/work/jenkins"
+JENKINS_BASE="{SETUP_ROOT}"
 
 # Check for missing binaries (stale symlinks should not happen)
 JENKINS_WAR="$JENKINS_BASE/lib/jenkins.war"

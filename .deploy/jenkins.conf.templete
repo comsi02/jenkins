@@ -7,7 +7,7 @@
 # Directory where Jenkins store its configuration and working
 # files (checkouts, build reports, artifacts, ...).
 #
-JENKINS_HOME="/home/comsi02/work/jenkins"
+JENKINS_HOME="{SETUP_ROOT}"
 
 ## Type:        string
 ## Default:     ""
@@ -26,8 +26,8 @@ JENKINS_JAVA_CMD=""
 # Be careful when you change this, as you need to update
 # permissions of $JENKINS_HOME and /var/log/jenkins.
 #
-JENKINS_USER="comsi02"
-JENKINS_GROUP="comsi02"
+JENKINS_USER="#{CURRENT_USER}"
+JENKINS_GROUP="#{CURRENT_GROUP}"
 
 ## Type:        string
 ## Default:     "-Djava.awt.headless=true"
