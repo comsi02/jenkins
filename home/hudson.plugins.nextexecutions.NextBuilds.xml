@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson.plugins.nextexecutions.NextBuilds_-DescriptorImpl plugin="next-executions@1.0.5">
+  <dateFormat>dd/MM/yyyy HH:mm</dateFormat>
+  <filterByView>true</filterByView>
+</hudson.plugins.nextexecutions.NextBuilds_-DescriptorImpl>
