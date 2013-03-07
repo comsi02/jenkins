@@ -1,0 +1,7 @@
+#Mon Feb 25 12:39:43 CET 2013
+getUserID=\ Returns the id of the user.\n\n @return user id\n
+getJob=\ Returns the name of the job.\n\n @return name of the job\n
+getUser=\ Returns the display name of the user.\n\n @return display name\n
+getDate=\ Returns the date of the change.\n\n @return timestamp in the format of {@link ConfigHistoryListenerHelper\#ID_FORMATTER}\n
+getFile=\ Returns the URL encoded absolute name of the file.\n\n @return URL encoded filename\n
+getOperation=\ Returns the type of the operation.\n\n @return name of the operation\n
