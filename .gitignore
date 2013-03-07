@@ -1,5 +1,6 @@
 jenkins.sh
 jenkins.conf
 jenkins.pid
+jobs
 *.log
 war
