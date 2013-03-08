@@ -1,4 +1,0 @@
-<j:jelly xmlns:j="jelly:core">
-  <j:set var="cronTrigger" value="${it.getCronTrigger(job)}"/>
-  <td>${cronTrigger}</td>
-</j:jelly>

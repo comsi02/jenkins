@@ -139,8 +139,8 @@ case "$1" in
             kill -TERM $pid >/dev/null 2>&1
             usleep 100000
         fi
-        rm -rf $JENKINS_PID_FILE
         success
+        rm -rf $JENKINS_PID_FILE
     else
         failure
     fi

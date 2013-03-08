@@ -1,5 +1,0 @@
-<l:dependencies xmlns:l='licenses'>
-  <l:dependency name='next-executions' groupId='org.jenkins-ci.plugins' artifactId='next-executions' version='1.0.5' url='https://wiki.jenkins-ci.org/display/JENKINS/Next+Executions'>
-    <l:description />
-  </l:dependency>
-</l:dependencies>

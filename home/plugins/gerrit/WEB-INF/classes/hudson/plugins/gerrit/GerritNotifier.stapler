@@ -1,2 +1,0 @@
-#Wed Oct 20 20:34:25 EEST 2010
-constructor=git_home,gerrit_host,gerrit_port,gerrit_username,approve_value,unstable_value,reject_value,review_approve_value,review_unstable_value,review_reject_value,private_key_file_path,passPhrase
