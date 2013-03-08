@@ -4,3 +4,4 @@ jenkins.pid
 jobs
 *.log
 war
+home/queue.xml
