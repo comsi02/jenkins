@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: erik
+Build-Jdk: 1.6.0_26
+Extension-Name: gravatar
+Specification-Title: This plugin shows Gravatar avatar images for Jenk
+ ins users.
+Implementation-Title: gravatar
+Implementation-Version: 1.1
+Group-Id: org.jenkins-ci.plugins
+Short-Name: gravatar
+Long-Name: Jenkins Gravatar plugin
+Url: http://wiki.jenkins-ci.org/display/JENKINS/Gravatar+Plugin
+Plugin-Version: 1.1
+Hudson-Version: 1.434
+Jenkins-Version: 1.434
+Plugin-Developers: Erik Ramfelt:redsolo:eramfelt@gmail.com
+

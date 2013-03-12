@@ -1,0 +1,17 @@
+<l:dependencies xmlns:l='licenses'>
+  <l:dependency name='Jenkins Gravatar plugin' groupId='org.jenkins-ci.plugins' artifactId='gravatar' version='1.1' url='http://wiki.jenkins-ci.org/display/JENKINS/Gravatar+Plugin'>
+    <l:description>This plugin shows Gravatar avatar images for Jenkins users.</l:description>
+    <l:license name='MIT' url='http://www.opensource.org/licenses/mit-license.php' />
+  </l:dependency>
+  <l:dependency name='Commons Codec' groupId='commons-codec' artifactId='commons-codec' version='1.5' url='http://commons.apache.org/codec/'>
+    <l:description>The codec package contains simple encoder and decoders for
+     various formats such as Base64 and Hexadecimal.  In addition to these
+     widely used encoders and decoders, the codec package also maintains a
+     collection of phonetic encoding utilities.</l:description>
+    <l:license name='The Apache Software License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+  <l:dependency name='Gravatar4Java' groupId='de.bripkens' artifactId='gravatar4java' version='1.1' url='https://github.com/bripkens/Gravatar4Java'>
+    <l:description>A small library for the generation of Gravatar URLs.</l:description>
+    <l:license name='The Apache Software License, Version 2.0' url='http://www.apache.org/licenses/LICENSE-2.0.txt' />
+  </l:dependency>
+</l:dependencies>

@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: jyrki
+Build-Jdk: 1.6.0_20
+Extension-Name: gerrit
+Specification-Title: Plugin for reporting build results to Gerrit
+Implementation-Title: gerrit
+Implementation-Version: 0.7
+Group-Id: org.jvnet.hudson.plugins
+Short-Name: gerrit
+Long-Name: Hudson Gerrit plugin
+Url: https://hudson.dev.java.net/plugin/gerrit
+Plugin-Version: 0.7
+Hudson-Version: 1.362
+Plugin-Dependencies: git:1.0
+Plugin-Developers: Jyrki Puttonen:jyrkiput:
+
