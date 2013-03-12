@@ -1,0 +1,8 @@
+# Jenkins|jenkins_system_uptime1
+# * * * * * echo "==== [ jenkins_system_uptime1 ] ====";/usr/bin/uptime;sleep 1;/usr/bin/uptime;each "===================="
+
+# Jenkins|jenkins_system_uptime2
+# * * * * * echo "==== [ jenkins_system_uptime2 ] ====";/usr/bin/uptime;sleep 1;/usr/bin/uptime;each "===================="
+
+# Jenkins|jenkins_system_uptime3
+# * * * * * echo "==== [ jenkins_system_uptime3 ] ====";/usr/bin/uptime;sleep 1;/usr/bin/uptime;each "===================="

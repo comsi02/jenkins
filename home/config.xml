@@ -1,16 +1,57 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <hudson>
   <disabledAdministrativeMonitors/>
-  <version>1.504</version>
+  <version>1.505</version>
   <numExecutors>2</numExecutors>
   <mode>NORMAL</mode>
   <useSecurity>true</useSecurity>
-  <authorizationStrategy class="hudson.security.AuthorizationStrategy$Unsecured"/>
-  <securityRealm class="hudson.security.SecurityRealm$None"/>
+  <authorizationStrategy class="hudson.security.GlobalMatrixAuthorizationStrategy">
+    <permission>hudson.model.Computer.Configure:billing</permission>
+    <permission>hudson.model.Computer.Connect:billing</permission>
+    <permission>hudson.model.Computer.Create:billing</permission>
+    <permission>hudson.model.Computer.Delete:billing</permission>
+    <permission>hudson.model.Computer.Disconnect:billing</permission>
+    <permission>hudson.model.Hudson.Administer:billing</permission>
+    <permission>hudson.model.Hudson.ConfigureUpdateCenter:billing</permission>
+    <permission>hudson.model.Hudson.Read:anonymous</permission>
+    <permission>hudson.model.Hudson.Read:billing</permission>
+    <permission>hudson.model.Hudson.RunScripts:billing</permission>
+    <permission>hudson.model.Hudson.UploadPlugins:billing</permission>
+    <permission>hudson.model.Item.Build:billing</permission>
+    <permission>hudson.model.Item.Cancel:billing</permission>
+    <permission>hudson.model.Item.Configure:billing</permission>
+    <permission>hudson.model.Item.Create:billing</permission>
+    <permission>hudson.model.Item.Delete:billing</permission>
+    <permission>hudson.model.Item.Discover:billing</permission>
+    <permission>hudson.model.Item.Read:anonymous</permission>
+    <permission>hudson.model.Item.Read:billing</permission>
+    <permission>hudson.model.Item.Workspace:billing</permission>
+    <permission>hudson.model.Run.Delete:billing</permission>
+    <permission>hudson.model.Run.Update:billing</permission>
+    <permission>hudson.model.View.Configure:billing</permission>
+    <permission>hudson.model.View.Create:billing</permission>
+    <permission>hudson.model.View.Delete:billing</permission>
+    <permission>hudson.model.View.Read:anonymous</permission>
+    <permission>hudson.model.View.Read:billing</permission>
+    <permission>hudson.scm.SCM.Tag:billing</permission>
+  </authorizationStrategy>
+  <securityRealm class="hudson.security.LDAPSecurityRealm" plugin="ldap@1.2">
+    <server>roaster.tmoncorp.com:389</server>
+    <rootDN>DC=tmoncorp,DC=com</rootDN>
+    <inhibitInferRootDN>false</inhibitInferRootDN>
+    <userSearchBase></userSearchBase>
+    <userSearch>uid={0}</userSearch>
+    <managerDN>CN=comsi02,OU=RegularWorker,OU=Users,OU=TMON,DC=tmoncorp,DC=com</managerDN>
+    <managerPassword>amVzc2llMDIwMiE=</managerPassword>
+    <disableMailAddressResolver>false</disableMailAddressResolver>
+  </securityRealm>
   <projectNamingStrategy class="jenkins.model.ProjectNamingStrategy$DefaultProjectNamingStrategy"/>
   <workspaceDir>${ITEM_ROOTDIR}/workspace</workspaceDir>
   <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>
   <systemMessage>&lt;h1 class=&quot;logo&quot;&gt;&lt;img src=&quot;http://img2.tmon.kr/static/img/h_logo_tmon.png&quot; width=&quot;132&quot; height=&quot;32&quot; alt=&quot;티몬&quot;&gt;&lt;/img&gt; - Batch Monitoring System&lt;/h1&gt;</systemMessage>
+  <markupFormatter class="hudson.markup.RawHtmlMarkupFormatter">
+    <disableSyntaxHighlighting>false</disableSyntaxHighlighting>
+  </markupFormatter>
   <jdks/>
   <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
   <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
