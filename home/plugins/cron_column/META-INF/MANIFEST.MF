@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: tbingaman
+Build-Jdk: 1.6.0_20
+Extension-Name: cron_column
+Implementation-Title: cron_column
+Implementation-Version: 1.003
+Short-Name: cron_column
+Long-Name: Hudson Cron Column Plugin
+Url: http://wiki.hudson-ci.org/display/HUDSON/Cron+Column+Plugin
+Plugin-Version: 1.003
+Hudson-Version: 1.350
+Plugin-Developers: Eelco de Vlieger:eelco_de_vlieger:eelcodevlieger@ho
+ tmail.com
+
