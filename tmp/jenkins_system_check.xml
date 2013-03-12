@@ -11,7 +11,7 @@
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers class="vector">
     <hudson.triggers.TimerTrigger>
-      <spec>*/5 * * * * 
+      <spec>* * * * * 
 # Jenkins System Check</spec>
     </hudson.triggers.TimerTrigger>
   </triggers>
