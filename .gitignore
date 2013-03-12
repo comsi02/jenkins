@@ -1,7 +1,20 @@
+# jenkins 
 jenkins.sh
 jenkins.conf
 jenkins.pid
-jobs
+
+# log
 *.log
+
+# jenkins web cache
 war
+
+# home
 home/queue.xml
+home/.owner
+
+# jobs 
+builds
+lastStable
+lastSuccessful
+nextBuildNumber
