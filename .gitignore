@@ -5,3 +5,4 @@ jobs
 *.log
 war
 home/queue.xml
+home/.owner
