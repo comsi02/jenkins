@@ -2,15 +2,13 @@
 
 function usage() { /*{{{*/
 
-    $argv = $_SERVER['argv'];
-
-    if(sizeof($argv) > 1 ) {
+    if($_SERVER['argc'] < 2 ) {
         echo "Usage:\n";
-        echo "\n{$argv[0]}\n";
+        echo "\tphp {$_SERVER['argv'][0]} <jenkins_home> <jenkins_port> <crontab file>\n";
+        echo "\tphp {$_SERVER['argv'][0]} /home/comsi02/work/jenkins 9100 bbat.tmonc.net.cron\n";
+        echo "\n";
         exit(-1);
     }
-    echo "You passed the command line argument '-d'\n";
-    exit(0);
 } /*}}}*/
 
 function jenkins_cli_exec($jenkins_cmd) { /*{{{*/
@@ -31,16 +29,16 @@ function jenkins_cli_exec($jenkins_cmd) { /*{{{*/
 } /*}}}*/
 
 function cron2xml() { /* {{{ */
-
-    $jenkins_base = '/home/comsi02/work/jenkins';
-    $jenkins_url  = 'http://127.0.0.1:9100';
+    $jenkins_base = $_SERVER['argv'][1];
+    $jenkins_url  = "http://127.0.0.1:{$_SERVER['argv'][2]}";
     $jenkins_cmd  = "/usr/bin/java -jar $jenkins_base/home/war/WEB-INF/jenkins-cli.jar -s $jenkins_url ";
+    $crontab_file = "$jenkins_base/cron/{$_SERVER['argv'][3]}";
 
     $module = array('job','cmd','sms','eml');
     $cron_info = array();
 
     #----------------------------------------------------------------------------#
-    # Jenkins 에 현재 등록된 job 목록을 가져와서 hash 에 넣는다.
+    # Jenkins 에 현재 등록된 job 목록을 가져와서 hash 에 기록.
     #----------------------------------------------------------------------------#
     $res = jenkins_cli_exec($jenkins_cmd.'list-jobs');
 
@@ -48,23 +46,36 @@ function cron2xml() { /* {{{ */
         foreach ($res[1] as $job_name) {
             $cron_info['jenkins_list'][$job_name] = 'AV';
         }
+        echo "[SUCC] Get Jenkins job list completed...\n";
+    } else {
+        echo "[FAIL] Get Jenkins job list failure...\n";
+        exit(-1);
     }
 
     #----------------------------------------------------------------------------#
-    # 
+    # Crontab 에 등록된 Jenkins Job 을 parsing 해서 hash 에 기록.
     #----------------------------------------------------------------------------#
-    $cron_cont = explode("\r\n",file_get_contents("$jenkins_base/cron/bbat.tmonc.net.cron",true)); 
+    if (file_exists($crontab_file) == true) {
+        $cron_cont = explode("\r\n",file_get_contents($crontab_file,true)); 
 
-    foreach ($cron_cont as $line) {
-        foreach ($module as $m) {
-            $pattern = '/^\# '.$m.'\|/';
-		    if (preg_match($pattern,$line)) {
-			    $res = explode("|",$line,3);
-			    $cron_info[$m][$res[1]] = $res[2];
-		    }
+        foreach ($cron_cont as $line) {
+            foreach ($module as $m) {
+                $pattern = '/^\# '.$m.'\|/';
+		        if (preg_match($pattern,$line)) {
+			        $res = explode("|",$line,3);
+			        $cron_info[$m][$res[1]] = $res[2];
+		        }
+            }
         }
+        echo "[SUCC] Crontab file read completed...\n";
+    } else {
+        echo "[FAIL] Crontab file not exist...\n";
+        exit(-1);
     }
 
+    #----------------------------------------------------------------------------#
+    # Jenkins Job XML 을 만들기 위한 설정
+    #----------------------------------------------------------------------------#
     foreach ($cron_info['job'] as $job_name => $job_info) {
 
         list($job_status, $job_desc) = explode("|",$cron_info['job'][$job_name],2);
