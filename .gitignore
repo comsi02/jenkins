@@ -14,7 +14,4 @@ home/queue.xml
 home/.owner
 
 # jobs 
-builds
-lastStable
-lastSuccessful
-nextBuildNumber
+jobs

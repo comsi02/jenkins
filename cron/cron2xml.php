@@ -1,32 +1,58 @@
 <?php
 
-function jenkins_job_list($jenkins_cmd){ /*{{{*/
-    $job_list = array();
+function usage() { /*{{{*/
 
-    exec($jenkins_cmd.'list-jobs',$result,$retval);
+    $argv = $_SERVER['argv'];
+
+    if(sizeof($argv) > 1 ) {
+        echo "Usage:\n";
+        echo "\n{$argv[0]}\n";
+        exit(-1);
+    }
+    echo "You passed the command line argument '-d'\n";
+    exit(0);
+} /*}}}*/
+
+function jenkins_cli_exec($jenkins_cmd) { /*{{{*/
+
+    $resmsg = array();
+
+    exec($jenkins_cmd,$result,$retval);
 
     if($retval != 0) {
-        print "cron2xml.php error!!!\n";
-        die(1);
-    }
-    
-    foreach ($result as $job_name) {
-        $job_list[$job_name] = 'AV';
+        $resmsg[0] = false;
+        $resmsg[1] = "cron2xml.php error!!!\n";
+    } else {
+        $resmsg[0] = true;
+        $resmsg[1] = $result;
     }
 
-    return $job_list;
-} /* }}} */
+    return $resmsg;
+} /*}}}*/
 
 function cron2xml() { /* {{{ */
 
     $jenkins_base = '/home/comsi02/work/jenkins';
-    $jenkins_url  = 'http://10.2.8.101:9100';
+    $jenkins_url  = 'http://127.0.0.1:9100';
     $jenkins_cmd  = "/usr/bin/java -jar $jenkins_base/home/war/WEB-INF/jenkins-cli.jar -s $jenkins_url ";
 
     $module = array('job','cmd','sms','eml');
     $cron_info = array();
 
-    $cron_info['jenkins_list'] = jenkins_job_list($jenkins_cmd);
+    #----------------------------------------------------------------------------#
+    # Jenkins 에 현재 등록된 job 목록을 가져와서 hash 에 넣는다.
+    #----------------------------------------------------------------------------#
+    $res = jenkins_cli_exec($jenkins_cmd.'list-jobs');
+
+    if ($res[0] == true) {
+        foreach ($res[1] as $job_name) {
+            $cron_info['jenkins_list'][$job_name] = 'AV';
+        }
+    }
+
+    #----------------------------------------------------------------------------#
+    # 
+    #----------------------------------------------------------------------------#
     $cron_cont = explode("\r\n",file_get_contents("$jenkins_base/cron/bbat.tmonc.net.cron",true)); 
 
     foreach ($cron_cont as $line) {
@@ -38,8 +64,6 @@ function cron2xml() { /* {{{ */
 		    }
         }
     }
-
-    #var_dump($cron_info);
 
     foreach ($cron_info['job'] as $job_name => $job_info) {
 
@@ -111,11 +135,11 @@ function cron2xml() { /* {{{ */
 
         print "#--------------------[ $job_name ]--------------------#\n";
 
-        exec("$jenkins_cmd $jenkins_cli_cmd $job_name <<< '$job_templete'\n",$result,$retval);
+        $res = jenkins_cli_exec("$jenkins_cmd $jenkins_cli_cmd $job_name <<< '$job_templete'\n");
 
         print_r(array($job_name,$job_desc,$job_status,str_replace("\n"," ",$job_schedule),$job_cmd,$job_noti_eml));
 
-        if ($retval == 0) {
+        if ($res == true) {
             echo "[SUCC] : job create success.\n";
         } else {
             echo "[FAIL] : job create failure.\n";
@@ -123,5 +147,6 @@ function cron2xml() { /* {{{ */
     }
 } /* }}} */
 
+usage();
 cron2xml();
 ?>
