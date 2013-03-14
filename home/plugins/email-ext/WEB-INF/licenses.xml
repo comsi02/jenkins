@@ -1,0 +1,32 @@
+<l:dependencies xmlns:l='licenses' groupId='org.jenkins-ci.plugins' artifactId='email-ext' version='2.27.1'>
+  <l:dependency name='Jenkins Email Extension Plugin' groupId='org.jenkins-ci.plugins' artifactId='email-ext' version='2.27.1' url='http://wiki.jenkins-ci.org/display/JENKINS/Email-ext+plugin'>
+    <l:description />
+  </l:dependency>
+  <l:dependency name='ASM Tree' groupId='asm' artifactId='asm-tree' version='3.2' url='http://asm.objectweb.org/asm-tree/'>
+    <l:description>A very small and fast Java bytecode manipulation framework</l:description>
+    <l:license name='BSD' url='http://asm.objectweb.org/license.html' />
+  </l:dependency>
+  <l:dependency name='ASM Commons' groupId='asm' artifactId='asm-commons' version='3.2' url='http://asm.objectweb.org/asm-commons/'>
+    <l:description>A very small and fast Java bytecode manipulation framework</l:description>
+    <l:license name='BSD' url='http://asm.objectweb.org/license.html' />
+  </l:dependency>
+  <l:dependency name='ASM Util' groupId='asm' artifactId='asm-util' version='3.2' url='http://asm.objectweb.org/asm-util/'>
+    <l:description>A very small and fast Java bytecode manipulation framework</l:description>
+    <l:license name='BSD' url='http://asm.objectweb.org/license.html' />
+  </l:dependency>
+  <l:dependency name='Groovy Sandbox' groupId='org.kohsuke' artifactId='groovy-sandbox' version='1.0' url='http://kohsuke.org/groovy-sandbox/'>
+    <l:description>Executes untrusted Groovy script safely</l:description>
+    <l:license name='MIT license' url='http://www.opensource.org/licenses/mit-license.php' />
+  </l:dependency>
+  <l:dependency name='ASM Core' groupId='asm' artifactId='asm' version='3.2' url='http://asm.objectweb.org/asm/'>
+    <l:description>A very small and fast Java bytecode manipulation framework</l:description>
+    <l:license name='BSD' url='http://asm.objectweb.org/license.html' />
+  </l:dependency>
+  <l:dependency name='Groovy' groupId='org.codehaus.groovy' artifactId='groovy' version='1.8.5' url='http://groovy.codehaus.org/'>
+    <l:description>Groovy: A powerful, dynamic language for the JVM</l:description>
+  </l:dependency>
+  <l:dependency name='ASM Analysis' groupId='asm' artifactId='asm-analysis' version='3.2' url='http://asm.objectweb.org/asm-analysis/'>
+    <l:description>A very small and fast Java bytecode manipulation framework</l:description>
+    <l:license name='BSD' url='http://asm.objectweb.org/license.html' />
+  </l:dependency>
+</l:dependencies>
