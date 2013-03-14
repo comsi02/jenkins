@@ -29,4 +29,10 @@ echo "# ./conf/jenkins file copy completed."
 /bin/sed -i "s/{CURRENT_GROUP}/$CURRENT_GROUP/g" $SETUP_ROOT/conf/jenkins.conf
 echo "# ./conf/jenkins file setup completed."
 
+sudo /bin/ln -sf ${SETUP_ROOT}/bin/jenkins.sh /etc/init.d/jenkins.sh
+echo "# make jenkins.sh link completed."
+
+sudo /sbin/chkconfig --add jenkins.sh
+echo "# chkconfig service add completes."
+
 echo "# ======================================================================"

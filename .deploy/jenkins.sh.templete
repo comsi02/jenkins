@@ -31,6 +31,7 @@
 ### END INIT INFO
 
 JENKINS_BASE="{SETUP_ROOT}"
+CURRENT_USER=`id -un`
 
 # Check for missing binaries (stale symlinks should not happen)
 JENKINS_WAR="$JENKINS_BASE/lib/jenkins.war"
@@ -47,7 +48,11 @@ test -r "$JENKINS_CONFIG" || { echo "$JENKINS_CONFIG not readable. Perhaps you f
 	if [ "$1" = "stop" ]; then exit 0;
 	else exit 6; fi; }
 
-JENKINS_PID_FILE="$JENKINS_BASE/run/jenkins.pid"
+if [ $CURRENT_USER = 'root' ]; then
+    JENKINS_PID_FILE="/var/run/jenkins.pid"
+else
+    JENKINS_PID_FILE="$JENKINS_BASE/run/jenkins.pid"
+fi
 
 # Source function library.
 . /etc/init.d/functions
@@ -99,7 +104,7 @@ case "$1" in
     start)
 	echo -n "Starting Jenkins "
 
-    if [ $LOGNAME = 'root' ]; then
+    if [ $CURRENT_USER = 'root' ]; then
         #---------------------------------------------------------------------------------------------------#
         # if root user by comsi02
         #---------------------------------------------------------------------------------------------------#
@@ -134,24 +139,27 @@ case "$1" in
 	;;
     stop)
 	echo -n "Shutting down Jenkins "
-    #---------------------------------------------------------------------------------------------------#
-    # if root user by comsi02
-    #---------------------------------------------------------------------------------------------------#
-    #killproc jenkins
 
-    #---------------------------------------------------------------------------------------------------#
-    # if nomal user by comsi02
-    #---------------------------------------------------------------------------------------------------#
-    if [ -f $JENKINS_PID_FILE ]; then
-        pid=`cat $JENKINS_PID_FILE`
-        if [ -n "$pid" ] ; then
-            kill -TERM $pid >/dev/null 2>&1
-            usleep 100000
-        fi
-        rm -rf $JENKINS_PID_FILE
-        success
+    if [ $CURRENT_USER = 'root' ]; then
+        #---------------------------------------------------------------------------------------------------#
+        # if root user by comsi02
+        #---------------------------------------------------------------------------------------------------#
+        killproc jenkins
     else
-        failure
+        #---------------------------------------------------------------------------------------------------#
+        # if nomal user by comsi02
+        #---------------------------------------------------------------------------------------------------#
+        if [ -f $JENKINS_PID_FILE ]; then
+            pid=`cat $JENKINS_PID_FILE`
+            if [ -n "$pid" ] ; then
+                kill -TERM $pid >/dev/null 2>&1
+                usleep 100000
+            fi
+            rm -rf $JENKINS_PID_FILE
+            success
+        else
+            failure
+        fi
     fi
     #---------------------------------------------------------------------------------------------------#
 	RETVAL=$?
