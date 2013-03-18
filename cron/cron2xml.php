@@ -74,6 +74,18 @@ function cron2xml() { /* {{{ */
     }
 
     #----------------------------------------------------------------------------#
+    # Jenkins Cli Login
+    #----------------------------------------------------------------------------#
+/*
+    #$res = jenkins_cli_exec("$jenkins_cmd login --username jenkins_ldap --password jenkins_ldap'\n");
+    if ($res[0] == true) {
+        echo "[SUCC] Jenkins Cli Login completed...\n";
+    } else {
+        echo "[SUCC] Jenkins Cli Login failure...\n";
+        exit(-1);
+    }
+*/
+    #----------------------------------------------------------------------------#
     # Jenkins Job XML 을 만들기 위한 설정
     #----------------------------------------------------------------------------#
     foreach ($cron_info['job'] as $job_name => $job_info) {
