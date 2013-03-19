@@ -48,7 +48,7 @@
   <projectNamingStrategy class="jenkins.model.ProjectNamingStrategy$DefaultProjectNamingStrategy"/>
   <workspaceDir>${ITEM_ROOTDIR}/workspace</workspaceDir>
   <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>
-  <systemMessage>&lt;h1 class=&quot;logo&quot;&gt;&lt;img src=&quot;http://img2.tmon.kr/static/img/h_logo_tmon.png&quot; width=&quot;132&quot; height=&quot;32&quot; alt=&quot;티몬&quot;&gt;&lt;/img&gt; - Batch Monitoring System&lt;/h1&gt;</systemMessage>
+  <systemMessage>&lt;h1 class=&quot;logo&quot;&gt;&lt;img src=&quot;http://imgd.tmon.kr/static/img/h_logo_tmon.png&quot; width=&quot;132&quot; height=&quot;32&quot; alt=&quot;티몬&quot;&gt;&lt;/img&gt; - Batch Monitoring System&lt;/h1&gt;</systemMessage>
   <markupFormatter class="hudson.markup.RawHtmlMarkupFormatter">
     <disableSyntaxHighlighting>false</disableSyntaxHighlighting>
   </markupFormatter>
