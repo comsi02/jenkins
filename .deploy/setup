@@ -13,7 +13,6 @@ SETUP_ROOT=`/bin/sed 's/\/$//' <<< "$SETUP_ROOT"`
 SETUP_ROOT_TMP=`/bin/sed 's/\//\\\\\//g' <<< "$SETUP_ROOT"`
 
 echo "# ======================================================================"
-/bin/mkdir -p $SETUP_ROOT/bin
 /bin/cp ${SETUP_ROOT}/.deploy/jenkins.sh.templete $SETUP_ROOT/bin/jenkins.sh
 echo "# ./bin/jenkins file copy completed."
 

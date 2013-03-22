@@ -77,13 +77,6 @@ do
   JENKINS_JAVA_CMD="$candidate"
 done
 
-# Jenkins Log & War directory create.
-# by comsi02
-mkdir -p $JENKINS_BASE/log
-mkdir -p $JENKINS_BASE/run
-chown $JENKINS_USER:$JENKINS_GROUP $JENKINS_BASE/log
-chown $JENKINS_USER:$JENKINS_GROUP $JENKINS_BASE/run
-
 JAVA_CMD="$JENKINS_JAVA_CMD $JENKINS_JAVA_OPTIONS -DJENKINS_HOME=$JENKINS_HOME -jar $JENKINS_WAR"
 PARAMS="--logfile=$JENKINS_BASE/log/jenkins.log --webroot=$JENKINS_HOME/war --daemon"
 [ -n "$JENKINS_PORT" ] && PARAMS="$PARAMS --httpPort=$JENKINS_PORT"
