@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: avenger
+Build-Jdk: 1.6.0_18
+Extension-Name: ssh
+Specification-Title: Execute shell scripts on remote hostusing ssh (pr
+ e and post build).Based on the cool scp plugin.
+Implementation-Title: ssh
+Implementation-Version: 2.3
+Short-Name: ssh
+Long-Name: Jenkins SSH plugin
+Url: http://wiki.jenkins-ci.org/display/JENKINS/SSH+plugin
+Plugin-Version: 2.3
+Hudson-Version: 1.358
+Plugin-Developers: Edmund Wagner:edmund_wagner:
+
