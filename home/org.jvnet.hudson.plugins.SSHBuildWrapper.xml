@@ -4,9 +4,9 @@
     <org.jvnet.hudson.plugins.SSHSite>
       <hostname>d2.tmonc.net</hostname>
       <port>22</port>
-      <username>tmon</username>
-      <password></password>
-      <keyfile>ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA7MFnnlxtsIrTwNzBlPGZU6vjrb/Rs4fr0lOC2tT+7mA6onL+AAp5hTXPF2TqxFOsO+TW50rKfvcAJOdapw23O/6yh0KXiuHm3j4JNWDBcH10fn+xlET77DtoxixaD9T+KCr/9+/TBU9heLu0Kg9UAhQLJDDuO3WVpcrD39iS07unHOel6w9x4dDWU44zrBQB/fj+PHJ3qTcG0ZBU8GAI9BtliIKCgX0eCX10plo0JrZj+B1RPKlUIfyq2xph1vdjZU+30tHQ+coQAeM2dn253eXblbisxME8ueCMeIB9WsuP/ZckPkGnPDc/dymeWjUWBADz6qKQol/2OaXKQel4Gw== tmon@tmonc.net</keyfile>
+      <username>comsi02</username>
+      <password>jessie0202!</password>
+      <keyfile></keyfile>
       <pty>false</pty>
     </org.jvnet.hudson.plugins.SSHSite>
   </sites>
