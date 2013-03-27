@@ -4,11 +4,11 @@
   <parent>
     <groupId>org.jenkins-ci.plugins</groupId>
     <artifactId>plugin</artifactId>
-    <version>1.424</version>
+    <version>1.466</version>
   </parent>
 
   <artifactId>ssh-slaves</artifactId>
-  <version>0.22</version>
+  <version>0.23</version>
   <packaging>hpi</packaging>
 
   <name>Jenkins SSH Slaves plugin</name>
@@ -41,6 +41,18 @@
       <url>http://repo.jenkins-ci.org/public/</url>
     </repository>
   </repositories>
+
+  <dependencies>
+    <!-- regular dependencies -->
+    <!-- plugin dependencies -->
+    <dependency>
+      <groupId>org.jenkins-ci.plugins</groupId>
+      <artifactId>ssh-credentials</artifactId>
+      <version>0.1</version>
+    </dependency>
+    <!-- jenkins dependencies -->
+    <!-- test dependencies -->
+  </dependencies>
 
   <build>
     <plugins>
