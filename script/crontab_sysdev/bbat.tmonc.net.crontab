@@ -1,0 +1,24 @@
+# jenkins_system_uptime1
+* * * * * echo "==== [ jenkins_system_uptime1 ] ====";/usr/bin/uptime;sleep 1;/usr/bin/uptime;echo "===================="
+
+# jenkins_system_uptime2
+* * * * * echo "==== [ jenkins_system_uptime2 ] ====";/usr/bin/uptime;sleep 1;/usr/bin/uptime;echo "===================="
+
+# jenkins_system_uptime3
+* * * * * echo "==== [ jenkins_system_uptime3 ] ====";/usr/bin/uptime;sleep 1;/usr/bin/uptime;echo "===================="
+
+# job|jenkins_system_uptime1|AV|젠킨스 시스템 확인 배치
+# cmd|jenkins_system_uptime1|*/2 * * * * echo "==== [ jenkins_system_uptime1 ] ====";/usr/bin/uptime;sleep 1;/usr/bin/uptime;echo "===================="
+
+# job|jenkins_system_uptime2|AV|"Jenkins System 확인 배치"
+# cmd|jenkins_system_uptime2|*/3 * * * * echo "==== [ jenkins_system_uptime2 ] ====";/usr/bin/uptime;sleep 2;/usr/bin/uptime;echo "===================="
+
+# job|jenkins_system_uptime3|AV|Jenkins System Uptime Check Batch3
+# cmd|jenkins_system_uptime3|*/5 * * * * echo "==== [ jenkins_system_uptime3 ] ====";/usr/bin/uptime;sleep 2;/usr/bin/uptime;echo "====================" | grep "==="
+
+# job|jenkins_system_uptime4|AV|Jenkins System Uptime Check Batch4
+# cmd|jenkins_system_uptime4|*/10 * * * * echo "==== [ jenkins_system_uptime4 ] ====";/usr/bin/uptime;sleep 4;/usr/bin/uptime;echo "====================" | grep "==="
+
+# job|sphinx_search_engine_indexing|HD|Sphinx Search Engine Indexing
+# cmd|sphinx_search_engine_indexing|*/10 * * * * /home/TMON/comsi02/work/sphinx/bin/index.sh
+# ssh|sphinx_search_engine_indexing|comsi02@d2.tmonc.net:22

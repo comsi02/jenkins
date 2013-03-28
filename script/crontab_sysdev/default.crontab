@@ -1,0 +1,11 @@
+##-------------------------------------------------------------------------------##
+## Jenkins Job Configuration
+## # job|job_name|job_status|job_desc
+## # sms|job_name|sms send list
+## # eml|job_name|email send list
+## # cmd|job_name|job_cmd
+##-------------------------------------------------------------------------------##
+
+# default notification info
+# sms|default|comsi02
+# eml|default|comsi02@tmon.co.kr
