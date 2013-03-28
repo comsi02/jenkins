@@ -1,24 +1,203 @@
-# jenkins_system_uptime1
-* * * * * echo "==== [ jenkins_system_uptime1 ] ====";/usr/bin/uptime;sleep 1;/usr/bin/uptime;echo "===================="
+MAILTO=''
+######################################################################################################################################################
+#*	*	*	*	*	/usr/bin/wget --no-http-keep-alive http://billgate.tmon.co.kr/gmarket/deal/register &> /dev/null
+#*	*	*	*	*	/usr/bin/wget --no-http-keep-alive http://billgate.tmon.co.kr/gmarket/deal/update &> /dev/null
+#*	*	*	*	*	/usr/bin/wget --no-http-keep-alive http://billgate.tmon.co.kr/gmarket/deal/delete &> /dev/null
+*	*	*	*	*	/usr/bin/wget --no-http-keep-alive http://billgate.tmon.co.kr/gmarket/order/request &> /dev/null
+*	*	*	*	*	/usr/bin/wget --no-http-keep-alive "http://billgate.tmon.co.kr/gmarket/order/cancel/request?ClaimStatus=ClaimReady" &> /dev/null
+*	*	*	*	*	/usr/bin/wget --no-http-keep-alive "http://billgate.tmon.co.kr/gmarket/order/cancel/request?ClaimStatus=ClaimDone" &> /dev/null
+20	*	*	*	*	/usr/bin/wget --no-http-keep-alive http://billgate.tmon.co.kr/gmarket/shipping/add &> /dev/null
+*	*	*	*	*	/usr/bin/wget --no-http-keep-alive http://billgate.tmon.co.kr/gmarket/coupon/approve &> /dev/null
+40	*	*	*	*	/usr/bin/wget --no-http-keep-alive http://billgate.tmon.co.kr/gmarket/pin/register &> /dev/null
+*	*	*	*	*	/usr/bin/wget --no-http-keep-alive http://billgate.tmon.co.kr/gmarket/coupon/cancel &> /dev/null
+#0	8	*	*	*	/usr/bin/wget --no-http-keep-alive "http://billgate.tmon.co.kr/gmarket/subscribe/request?type=Update&method=SMS" &> /dev/null
+#5	8	*	*	*	/usr/bin/wget --no-http-keep-alive "http://billgate.tmon.co.kr/gmarket/subscribe/request?type=New&method=SMS" &> /dev/null
+#10	8	*	*	*	/usr/bin/wget --no-http-keep-alive "http://billgate.tmon.co.kr/gmarket/subscribe/request?type=Withdraw&method=SMS" &> /dev/null
+#15	8	*	*	*	/usr/bin/wget --no-http-keep-alive "http://billgate.tmon.co.kr/gmarket/subscribe/request?type=Update&method=Email" &> /dev/null
+#20	8	*	*	*	/usr/bin/wget --no-http-keep-alive "http://billgate.tmon.co.kr/gmarket/subscribe/request?type=New&method=Email" &> /dev/null
+#25	8	*	*	*	/usr/bin/wget --no-http-keep-alive "http://billgate.tmon.co.kr/gmarket/subscribe/request?type=Withdraw&method=Email" &> /dev/null
+# 10분 단위로 Admin에서 취소한 G마켓 주문건 취소 요청 보냄
+*/10	*	*	*	*	/usr/bin/wget --no-http-keep-alive "http://billgate.tmon.co.kr/gmarket/order/cancel/add" &> /dev/null
+######################################################################################################################################################
+*/10	*	*	*	*	cd /home/webroot/billrpc/rpc/ && /usr/bin/php ./batch/all_cancel.php --cancel
+######################################################################################################################################################
+# SMS 전송 배치
+* 	*	*	*	* cd /home/webroot/billrpc/rpc; php batch/sms_send.php
+# 10분 단위로 딜 매출 집계
+*/10 *	*	*	* cd /home/webroot/billrpc/rpc; php batch/deal_statistics_date.php
+# 30분 단위로 지마켓 매출 확인 
+#00 *	*	*	* cd /home/webroot/billrpc/rpc; php batch/gmarket_buy_check.php
+# 30분 단위로 딜 구매자가 구매한 다른 딜 배치
+*/30 *	*	*	* cd /home/webroot/billrpc/rpc; php batch/deal_to_deal.php
+# 30분 단위로 환불 티켓 중복 체크
+10,40 *	*	*	* cd /home/webroot/billrpc/rpc; php batch/refund_dup_check.php
+# 30분 단위로 충전 금액, 구매 금액 틀린 경우 체크
+# 더이상 받아볼 필요가 없어서 주석처리 함 nexus11@ 2013.02.18
+#20,50 *	*	*	* cd /home/webroot/billrpc/rpc; php batch/pay_ok_buy_fail.php
+# 일대사 배치 
+0 	9	*	*	* cd /home/webroot/billrpc/rpc/batch/pg_data; ./pg.sh
+# 티몬나우 환불
+0 	17	*	*	* cd /home/webroot/www/tn_vendor ; php cron_auto_refund.php
+###############################################################      통계 관련 batch     #############################################################
+0 7		*	*	* cd /home/webroot/sql; /bin/sh ./first_buy_recomm.sh
+0 9		*	*	* cd /home/webroot/www/SG/cli; ./run.php Billing_SendRecommUser
+#배송완료배치 종료..
+#0 9		*	*	* cd /home/webroot/www/SG/cli; ./run.php Billing_SetDeliveryStatus
+10 9	*	*	* cd /home/webroot/www/SG/cli; ./run.php Billing_GetKpiInfo
+1 *	*	*	* cd /home/webroot/www/SG/cli; ./run.php Billing_DealNoti
+######################################################################################################################################################
+###############################################################    공정위 알림  batch     #############################################################
+0 9		*	*	* cd /home/webroot/www/SG/cli; ./run.php Billing_SendExpireNoti
+00 10	*	*	* cd /home/webroot/www/SG/cli; ./run.php Billing_RefundCashback
+00 18	*	*	* cd /home/webroot/www/SG/cli; ./run.php Billing_RefundTerm
+00 23	*	*	* cd /home/webroot/www/SG/cli; ./run.php Billing_RefundTerm
+######################################################################################################################################################
+###############################################################    파트너센터 결과보고서  batch     ##################################################
+# job|partner_sale_report|AV|파트너센터 결과보고서 batch
+# cmd|partner_sale_report|00 04 * * * cd /home/webroot/billrpc/rpc; php batch/sale_report.php
 
-# jenkins_system_uptime2
-* * * * * echo "==== [ jenkins_system_uptime2 ] ====";/usr/bin/uptime;sleep 1;/usr/bin/uptime;echo "===================="
+# job|deal_pause_check|AV|딜 중지 Check
+# cmd|deal_pause_check|*/10 * * * * cd /home/webroot/billrpc/rpc; php batch/dealPause_check.php
 
-# jenkins_system_uptime3
-* * * * * echo "==== [ jenkins_system_uptime3 ] ====";/usr/bin/uptime;sleep 1;/usr/bin/uptime;echo "===================="
+######################################################################################################################################################
+###############################################################    안심번호 등록/수정/해제  batch   ##################################################
+#*/5 *	*	*	* cd /home/webroot/billrpc/rpc; php batch/safe_phone.php
+###############################################################    안심번호 등록/수정/해제 나눔  batch   ##################################################
+*/5 *	*	*	* cd /home/webroot/billrpc/rpc; php batch/safe_phone.php List
+*/5 *	*	*	* cd /home/webroot/billrpc/rpc; php batch/safe_phone.php doAV
+*/5 *	*	*	* cd /home/webroot/billrpc/rpc; php batch/safe_phone.php doDN
+######################################################################################################################################################
+###############################################################    G마켓 사용자 티몬 취소 대상자 목록  batch   #######################################
+00 09	*	*	* cd /home/webroot/www/SG/cli; ./run.php Billing_GmarketHoldUser
+######################################################################################################################################################
 
-# job|jenkins_system_uptime1|AV|젠킨스 시스템 확인 배치
-# cmd|jenkins_system_uptime1|*/2 * * * * echo "==== [ jenkins_system_uptime1 ] ====";/usr/bin/uptime;sleep 1;/usr/bin/uptime;echo "===================="
 
-# job|jenkins_system_uptime2|AV|"Jenkins System 확인 배치"
-# cmd|jenkins_system_uptime2|*/3 * * * * echo "==== [ jenkins_system_uptime2 ] ====";/usr/bin/uptime;sleep 2;/usr/bin/uptime;echo "===================="
+###########################
+####### 정산 관련 #########
+###########################
+#log Directory에 날짜별 Directory를 미리 생성해 놓는다.
+0 0 * * *  mkdir -p /home/webroot/billkpi-batch/log/`date +\%Y/\%m/\%d/`
 
-# job|jenkins_system_uptime3|AV|Jenkins System Uptime Check Batch3
-# cmd|jenkins_system_uptime3|*/5 * * * * echo "==== [ jenkins_system_uptime3 ] ====";/usr/bin/uptime;sleep 2;/usr/bin/uptime;echo "====================" | grep "==="
+#재무 기초 데이터 작성 배치
+0 4 * * * /usr/bin/php /home/webroot/billkpi-batch/script/calculation/sales_summary.php     1>> /home/webroot/billkpi-batch/log/`date +\%Y/\%m/\%d/`sales_summary.log      2>> /home/webroot/billkpi-batch/log/`date +\%Y/\%m/\%d/`sales_summary.err
 
-# job|jenkins_system_uptime4|AV|Jenkins System Uptime Check Batch4
-# cmd|jenkins_system_uptime4|*/10 * * * * echo "==== [ jenkins_system_uptime4 ] ====";/usr/bin/uptime;sleep 4;/usr/bin/uptime;echo "====================" | grep "==="
+#재무 기초 데이터 작성 배치 (obsolete: 다시 짜야함)
+0 4 * * * /usr/bin/php /home/webroot/billkpi-batch/script/calculation/sales_amount.php      1>> /home/webroot/billkpi-batch/log/`date +\%Y/\%m/\%d/`sales_amount.log       2>> /home/webroot/billkpi-batch/log/`date +\%Y/\%m/\%d/`sales_amount.err
 
-# job|sphinx_search_engine_indexing|HD|Sphinx Search Engine Indexing
-# cmd|sphinx_search_engine_indexing|*/10 * * * * /home/TMON/comsi02/work/sphinx/bin/index.sh
-# ssh|sphinx_search_engine_indexing|comsi02@d2.tmonc.net:22
+#재무 기초 데이터중 PG별 데이터 뽑는 배치
+0 5 * * * /usr/bin/php /home/webroot/billkpi-batch/script/calculation/pay_summary.php       1>> /home/webroot/billkpi-batch/log/`date +\%Y/\%m/\%d/`pay_summary.log        2>> /home/webroot/billkpi-batch/log/`date +\%Y/\%m/\%d/`pay_summary.err
+
+# 정산일에 해당하는 딜 정산액 산출하는 배치
+0 7,9,12,15 * * * /usr/bin/php /home/webroot/billkpi-batch/script/calculation/merchant_payment.php --force 1>> /home/webroot/billkpi-batch/log/`date +\%Y/\%m/\%d/`merchant_payment.log   2>> /home/webroot/billkpi-batch/log/`date +\%Y/\%m/\%d/`merchant_payment.err
+
+# 조정액 배치 (일정시간 테스트 후 merchant_payment.php와 merge 예정)
+30 7,9,12,15 * * * /usr/bin/php /home/webroot/billkpi-batch/script/calculation/merchant_payment_extra.php --force 1>> /home/webroot/billkpi-batch/log/`date +\%Y/\%m/\%d/`merchant_payment_extra.log   2>> /home/webroot/billkpi-batch/log/`date +\%Y/\%m/\%d/`merchant_payment_extra.err
+
+# 판매종료일 +1일후에, 정산액 예측데이터 뽑는 배치
+0 8 * * * /usr/bin/php /home/webroot/billkpi-batch/script/calculation/preview_merchant_payment.php 1>> /home/webroot/billkpi-batch/log/`date +\%Y/\%m/\%d/`preview_merchant_payment.log 2>> /home/webroot/billkpi-batch/log/`date +\%Y/\%m/\%d/`preview_merchant_payment.err
+
+# 정산 데이터 계산 배치 - since 2013-01-23 by sojubox@tmon.co.kr
+* 7-19 * * * /home/webroot/billkpi-batch/script/calculation/handle_calculate_merchant_payment.sh
+
+#최초 재무 미완료 딜 감시
+0 11 * * 2 /usr/bin/php /home/webroot/billkpi-batch/script/calculation/monitor_partner_info_req.php 1>> /home/webroot/billkpi-batch/log/`date +\%Y/\%m/\%d/`monitor_partner_info_req.log 2>> /home/webroot/billkpi-batch/log/`date +\%Y/\%m/\%d/`monitor_partner_info_req.err
+
+#SPC 데이터 연동
+*/30 * * * * /usr/bin/php /home/webroot/billkpi-batch/script/calculation/delivery_info.php 1> /home/webroot/billkpi-batch/log/delivery_info.log 2> /home/webroot/billkpi-batch/log/delivery_info.err
+
+#정산 정보 정정 요청 처리
+* * * * * /usr/bin/php /home/webroot/billkpi-batch/script/calculation/handle_correct_merchant_payment_request.php 1> /home/webroot/billkpi-batch/log/handle_correct_merchant_payment_request.log 2> /home/webroot/billkpi-batch/log/handle_correct_merchant_payment_request.err
+
+### 딜 정보 Monitor (정산일 날짜가 정상적인지, salesforce에서 옵션별 수수료 정보전달에 누락이 있는지)
+0 11 * * * /usr/bin/php /home/webroot/billkpi-batch/script/calculation/monitor_deal.php 1>> /home/webroot/billkpi-batch/log/`date +\%Y/\%m/\%d/`monitor_deal.log 2>> /home/webroot/billkpi-batch/log/`date +\%Y/\%m/\%d/`monitor_deal.err
+
+### salesforce에 재무 기초 데이터 정보 보내주기
+30 8 * * * /usr/bin/php /home/webroot/billkpi-batch/script/calculation/post2salesforce.php 1>> /home/webroot/billkpi-batch/log/`date +\%Y/\%m/\%d/`post2salesforce.log 2>> /home/webroot/billkpi-batch/log/`date +\%Y/\%m/\%d/`post2salesforce.err
+
+### dwdb1모니터링 (이중화 끊김, 지연)
+#*/2 * * * * /usr/bin/php /home/webroot/billkpi-batch/script/calculation/monitor_db.php 1> /home/webroot/billkpi-batch/log/monitor_db.log 2> /home/webroot/billkpi-batch/log/monitor_db.err
+
+######################################
+####### 정산 관련 Deprecated #########
+######################################
+
+#log Directory에 날짜별 Directory를 미리 생성해 놓는다.
+#0 0 * * *  mkdir -p /home/webroot/billrpc/rpc/batch/log/kpi/`date +\%Y/\%m/\%d/`
+
+# 딜 자동연장 배치
+# 실시간 연장처리 함으로 필요 없음
+#0 * * * * /usr/bin/php /home/webroot/billkpi-batch/script/calculation/correct_partner_info.php 1>> /home/webroot/billkpi-batch/log/correct_partner_info.log   2>> /home/webroot/billkpi-batch/log/correct_partner_info.err
+
+#결산 딜전표
+#30 1 * * * /home/webroot/billrpc/rpc/batch/settlement/settlement.sh 6 &> /dev/null
+
+# batch monitor
+#0 10 * * * /home/webroot/billrpc/rpc/batch/kpi/monitor_log.php /home/tmon/sales_summary.log /home/tmon/pay_summary.log /home/tmon/merchant_payment.log /home/tmon/preview_merchant_payment.log //home/tmon/sales_amount.log &
+
+
+########## ETC ############
+###########################
+
+#배송지연 딜 모니터링 (새벽3시 실행)
+0 3 * * * /home/webroot/www/SG/cli/run.php Billing_SetDelayDeliveryStats
+
+#배송 발주서발급일,지연기준일,배송상태 변경 배치
+5,35  1,2,4  * * *  /home/webroot/www/SG/cli/run.php Billing_SetDeliveryInfoCurrentState
+
+#계좌번호 입력 대기건 처리 (환불계좌등록되어 있으나, 계좌입력대기리스트로 남아 있는 건 처리 하루 1번 오전 8시 실행)
+05  8  * * *  /home/webroot/www/SG/cli/run.php Billing_SetRefundForAtuCheckAccount
+
+#구매취소 배치 처리 (매 10분단위로 배치 수행)
+05,15,25,35,45,55 *  *       *       *  /home/webroot/www/SG/cli/run.php Billing_RefundBatchForBuyCancel Y 1
+05,15,25,35,45,55 *  *       *       *  /home/webroot/www/SG/cli/run.php Billing_RefundBatchForBuyCancel Y 3
+05,15,25,35,45,55 *  *       *       *  /home/webroot/www/SG/cli/run.php Billing_RefundBatchForBuyCancel Y 5
+05,15,25,35,45,55 *  *       *       *  /home/webroot/www/SG/cli/run.php Billing_RefundBatchForBuyCancel Y 7
+05,15,25,35,45,55 *  *       *       *  /home/webroot/www/SG/cli/run.php Billing_RefundBatchForBuyCancel Y 9
+
+#계좌번호 암호화 관련 임시 수행
+#01 19   *       *       *  /home/webroot/www/SG/cli/run.php Billing_SetAccountNumberEnc refund
+#03 19   *       *       *  /home/webroot/www/SG/cli/run.php Billing_SetAccountNumberEnc account_bank
+#05 19   *       *       *  /home/webroot/www/SG/cli/run.php Billing_SetAccountNumberEnc spc_request
+
+
+# 투어딜 구매예약 : 현재기준 딜종료일이 이전 7일이내인 딜중 구매예약 상태의 티켓리스트 관리자에게 발송
+0 3 * * * /home/webroot/www/SG/cli/run.php Billing_SendBuywaitTicketListToAdmin
+
+# 즉시 사용가능 PIN 발급 배치 (쿠프마케팅)
+* *	*	*	* cd /home/webroot/billrpc/rpc; php batch/use_direct_pin.php
+
+# 쿠프연동 API 서버로 접속이 안되면 SMS 발송
+*/10 *	*	*	* cd /home/webroot/billrpc/rpc; php batch/use_direct_pin_status_check.php
+
+# 쿠프연동 상품코드를 입력하지 않으면 핀발송 시간 12시간 전에 알림 메일 발송
+0 *	*	*	* cd /home/webroot/billrpc/rpc; php batch/use_direct_pin_code_check.php
+
+#미니램 연동 ( 매시 5, 15, 25, 35, 45, 55 실행)
+5,15,25,35,45,55 * * * * /home/webroot/www/SG/cli/run.php Billing_DeliveryInfoLinked 1> /home/webroot/billrpc/rpc/batch/log/DeliveryInfoLinked.log 2> /home/webroot/billrpc/rpc/batch/log/DeliveryInfoLinked.err
+
+#[배송지연모니터링] 파트너 SMS공지 발송 (8시, 9시, 13시 실행)
+#독촉 SMS
+0 8 * * 1-5 /home/webroot/www/SG/cli/run.php Billing_SetDelayDeliveryDealStat
+
+#일반공지 1차
+0 9 * * 1-5 /home/webroot/www/SG/cli/run.php Billing_SetDelayDeliveryDealStat
+
+#일반공지 2차
+0 13 * * 1-5 /home/webroot/www/SG/cli/run.php Billing_SetDelayDeliveryDealStat
+
+# 배송지연 통계 NEW
+3 8 * * * /home/webroot/www/SG/cli/run.php Billing_SetDelayDeliveryDealStatBatch
+
+#########################################
+########## 반품지정택배 연동 - 계약 만료 ############
+#########################################
+# 반품 데이터 전송
+#0 * * * *	/usr/bin/wget --no-http-keep-alive -qSO- -a /home/webroot/billrpc/rpc/batch/log/autorefundpickup_send.log http://linkage.tmon.co.kr/AutoRefundPickup/SendRefundPickupData/korex >> /home/webroot/billrpc/rpc/batch/log/autorefundpickup_send.log
+
+# 배송추적 데이터 처리
+#30 * * * *	/usr/bin/wget --no-http-keep-alive -qSO- -a /home/webroot/billrpc/rpc/batch/log/autorefundpickup_rcv.log http://linkage.tmon.co.kr/AutoRefundPickup/ProceedPickupProcessData/korex >> /home/webroot/billrpc/rpc/batch/log/autorefundpickup_rcv.log
+
+#################################################################################
+########## 티몬 베스트 데이터 추출
+#################################################################################
+*/30 * * * * cd /home/webroot/billrpc/rpc/ && /usr/bin/php ./batch/deal_sales_info.php

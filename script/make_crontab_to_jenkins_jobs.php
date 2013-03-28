@@ -116,17 +116,6 @@ function cron2xml() { /* {{{ */
     #----------------------------------------------------------------------------#
     # Crontab 에 등록된 Jenkins Job 을 parsing 해서 hash 에 기록.
     #----------------------------------------------------------------------------#
-
-
-    print "========";
-    print_r ($params['cron']);
-    print "========";
-    
-    print_r (is_dir($params['cron']));
-    print "========";
-    print_r (file_exists($params['cron']));
-    print "========";
-
     $params['cron_file'] = array();
 
     if (is_dir($params['cron'])) {
