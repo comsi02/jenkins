@@ -1,3 +1,3 @@
-# job|sphinx_search_engine_indexing|AV|Sphinx Search Engine Indexing
+# job|sphinx_search_engine_indexing|HD|Sphinx Search Engine Indexing
 # cmd|sphinx_search_engine_indexing|*/10 * * * * /home/TMON/comsi02/work/sphinx/bin/index.sh
 # ssh|sphinx_search_engine_indexing|comsi02@d2.tmonc.net:22
