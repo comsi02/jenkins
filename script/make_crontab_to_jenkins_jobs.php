@@ -48,6 +48,11 @@ function cron2xml() { /* {{{ */
     {
         $arg = $_SERVER['argv'][$i];
 
+        $params['site'] = 'http://127.0.0.1:9100';
+        $params['jar']  = '../lib/jenkins-cli.jar';
+        $params['userid']  = 'jenkins';
+        $params['passwd']  = "dGpxbHRtMTIzIQ==";
+
         if      ( $arg=="-s" || $arg=="--site" )     $params['site']   = $_SERVER['argv'][++$i];
         else if ( $arg=="-j" || $arg=="--jar" )      $params['jar']    = $_SERVER['argv'][++$i];
         else if ( $arg=="-c" || $arg=="--cron" )     $params['cron']   = $_SERVER['argv'][++$i];
@@ -60,18 +65,6 @@ function cron2xml() { /* {{{ */
             system('stty echo');
             echo "\n";
         }
-        else if ( $arg=="-e" || $arg=="--encode" ) {
-            echo "username: ";
-            $userid = trim(fgets(STDIN));
-            echo "password: ";
-            system('stty -echo');
-            $passwd = base64_encode(trim(fgets(STDIN)));
-            system('stty echo');
-            echo "\n";
-
-            file_put_contents("./$userid.passwd",$passwd);
-            exit();
-        }
     }
 
     $jenkins_cmd  = "/bin/env java -jar {$params['jar']} -s {$params['site']} ";
@@ -83,12 +76,9 @@ function cron2xml() { /* {{{ */
     #----------------------------------------------------------------------------#
     if ($params['userid'] and $params['passwd']) {
 
-        $passwd_file = "./{$params['userid']}.passwd.tmp";
-        file_put_contents($passwd_file,base64_decode($params['passwd']));
+        $passwd_file = base64_decode($params['passwd']);
 
-        $res = jenkins_cli_exec("$jenkins_cmd login --username {$params['userid']} --password-file $passwd_file\n");
-
-        unlink($passwd_file);
+        $res = jenkins_cli_exec("$jenkins_cmd login --username {$params['userid']} --password $passwd_file\n");
 
         if ($res[0] == true) {
             echo "[SUCC] Jenkins Cli Login completed...\n";

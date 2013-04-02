@@ -33,8 +33,10 @@
     <permission>hudson.model.Item.Cancel:comsi02</permission>
     <permission>hudson.model.Item.Configure:billing</permission>
     <permission>hudson.model.Item.Configure:comsi02</permission>
+    <permission>hudson.model.Item.Configure:jenkins</permission>
     <permission>hudson.model.Item.Create:billing</permission>
     <permission>hudson.model.Item.Create:comsi02</permission>
+    <permission>hudson.model.Item.Create:jenkins</permission>
     <permission>hudson.model.Item.Delete:billing</permission>
     <permission>hudson.model.Item.Delete:comsi02</permission>
     <permission>hudson.model.Item.Discover:billing</permission>
@@ -42,6 +44,7 @@
     <permission>hudson.model.Item.Read:anonymous</permission>
     <permission>hudson.model.Item.Read:billing</permission>
     <permission>hudson.model.Item.Read:comsi02</permission>
+    <permission>hudson.model.Item.Read:jenkins</permission>
     <permission>hudson.model.Item.Workspace:billing</permission>
     <permission>hudson.model.Item.Workspace:comsi02</permission>
     <permission>hudson.model.Run.Delete:billing</permission>
@@ -64,7 +67,7 @@
     <rootDN>DC=tmoncorp,DC=com</rootDN>
     <inhibitInferRootDN>false</inhibitInferRootDN>
     <userSearchBase></userSearchBase>
-    <userSearch>uid={0}</userSearch>
+    <userSearch>cn={0}</userSearch>
     <managerDN>CN=jenkins,OU=Service,OU=DistributionGroup,DC=tmoncorp,DC=com</managerDN>
     <managerPassword>dGpxbHRtMTIzIQ==</managerPassword>
     <disableMailAddressResolver>false</disableMailAddressResolver>
