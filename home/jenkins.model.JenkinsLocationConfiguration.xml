@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <jenkins.model.JenkinsLocationConfiguration>
   <adminAddress>시스템개발유닛 &lt;BillingDev_Unit@tmon.co.kr&gt;</adminAddress>
-  <jenkinsUrl>http://10.2.8.101:9100/</jenkinsUrl>
+  <jenkinsUrl>http://bbat.tmonc.net:9100/</jenkinsUrl>
 </jenkins.model.JenkinsLocationConfiguration>

@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <hudson.plugins.emailext.ExtendedEmailPublisherDescriptor plugin="email-ext@2.27.1">
-  <hudsonUrl>http://10.2.8.101:9100/</hudsonUrl>
+  <hudsonUrl>http://bbat.tmonc.net:9100/</hudsonUrl>
   <adminAddress>address not configured yet &lt;nobody&gt;</adminAddress>
   <useSsl>false</useSsl>
   <defaultContentType>text/html</defaultContentType>
