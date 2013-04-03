@@ -53,10 +53,10 @@ MAILTO=''
 00 23	*	*	* cd /home/webroot/www/SG/cli; ./run.php Billing_RefundTerm
 ######################################################################################################################################################
 ###############################################################    파트너센터 결과보고서  batch     ##################################################
-# job|partner_sale_report|AV|파트너센터 결과보고서 batch
+# job|partner_sale_report|HD|파트너센터 결과보고서 batch
 # cmd|partner_sale_report|00 04 * * * cd /home/webroot/billrpc/rpc; php batch/sale_report.php
 
-# job|deal_pause_check|AV|딜 중지 Check
+# job|deal_pause_check|HD|딜 중지 Check
 # cmd|deal_pause_check|*/10 * * * * cd /home/webroot/billrpc/rpc; php batch/dealPause_check.php
 
 ######################################################################################################################################################
