@@ -1,4 +1,4 @@
-#Mon Mar 25 13:20:53 PDT 2013
+#Sat Apr 06 18:27:42 PDT 2013
 mainArtifact=\ The main artifact (like jar or war, but could be anything.)\n\n If this is a POM module, the main artifact contains the same value as {@link \#pomArtifact}.\n
 parent=\ The build to which this record belongs.\n
 pomArtifact=\ POM artifact.\n
