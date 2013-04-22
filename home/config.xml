@@ -31,9 +31,11 @@
     <permission>hudson.model.Item.Build:comsi02</permission>
     <permission>hudson.model.Item.Cancel:billing</permission>
     <permission>hudson.model.Item.Cancel:comsi02</permission>
+    <permission>hudson.model.Item.Configure:anonymous</permission>
     <permission>hudson.model.Item.Configure:billing</permission>
     <permission>hudson.model.Item.Configure:comsi02</permission>
     <permission>hudson.model.Item.Configure:jenkins</permission>
+    <permission>hudson.model.Item.Create:anonymous</permission>
     <permission>hudson.model.Item.Create:billing</permission>
     <permission>hudson.model.Item.Create:comsi02</permission>
     <permission>hudson.model.Item.Create:jenkins</permission>

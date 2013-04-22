@@ -9,16 +9,16 @@ Specification-Title: This plug-in provides deep integration of Jenkins
    Now it is a plug-in that is installed by default, but can be disabl
  ed.
 Implementation-Title: maven-plugin
-Implementation-Version: 1.510
+Implementation-Version: 1.511
 Plugin-Class: hudson.maven.PluginImpl
 Group-Id: org.jenkins-ci.main
 Short-Name: maven-plugin
 Long-Name: Maven Integration plugin
 Url: http://wiki.jenkins-ci.org/display/JENKINS/Maven+2+Project+Plugin
-Plugin-Version: 1.510
-Hudson-Version: 1.510
-Jenkins-Version: 1.510
-Plugin-Dependencies: javadoc:1.0,token-macro:1.1;resolution:=optional,
- mailer:1.3
+Plugin-Version: 1.511
+Hudson-Version: 1.511
+Jenkins-Version: 1.511
+Plugin-Dependencies: mailer:1.3,javadoc:1.0,token-macro:1.1;resolution
+ :=optional
 Plugin-Developers: 
 
