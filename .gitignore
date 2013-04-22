@@ -1,23 +1,2 @@
 # for empty directory
 !.gitignore
-
-# jenkins 
-jenkins.sh
-jenkins.conf
-jenkins.pid
-
-# log
-*.log
-
-# jenkins web cache
-war
-
-# home
-home/queue.xml
-home/.owner
-
-# jobs 
-jobs
-
-# password
-*.passwd
