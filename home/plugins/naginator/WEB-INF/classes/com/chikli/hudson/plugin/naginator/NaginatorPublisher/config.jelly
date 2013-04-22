@@ -1,0 +1,25 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+    <f:entry title="Rerun build for unstable builds as well as failures" field="rerunIfUnstable">
+        <f:checkbox />
+    </f:entry>
+
+    <f:entry title="${%Delay before schedule}">
+        <j:invokeStatic var="delays" className="com.chikli.hudson.plugin.naginator.ScheduleDelay" method="all"/>
+        <f:hetero-radio descriptors="${delays}" field="delay"/>
+    </f:entry>
+
+    <f:entry title="Max number of successive failed build" field="maxSchedule">
+        <f:textbox/>
+    </f:entry>
+
+    <f:advanced>
+        <f:entry field="checkRegexp"
+                 title="Only rerun build if regular expression is found in output">
+            <f:checkbox />
+        </f:entry>
+        <f:entry title="Regular expression to search for" field="regexpForRerun">
+            <f:textbox />
+        </f:entry>
+    </f:advanced>
+
+</j:jelly>
